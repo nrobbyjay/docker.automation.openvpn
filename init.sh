@@ -11,8 +11,8 @@ fi
 if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  sudo docker volume create vol_ovpn
  PUBLIC_IP=$(curl -s ifconfig.me)
- sudo docker run --rm -v vol_ovpn buildtovpn ovpn_genconfig -u udp://$PUBLIC_IP
- sudo docker run --rm -v vol_ovpn buildtovpn ovpn_genconfig ovpn_initpki
+ sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_genconfig -u udp://$PUBLIC_IP
+ sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_initpki
 fi
 
 sudo docker compose up
