@@ -12,3 +12,5 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  sudo docker run --rm -v vol_ovpn buildtovpn ovpn_genconfig -u udp://(curl ifconfig.me)
  sudo docker run --rm -v vol_ovpn buildtovpn ovpn_genconfig ovpn_initpki
 fi
+
+sudo docker compose up
