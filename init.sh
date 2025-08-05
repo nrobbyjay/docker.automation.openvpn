@@ -15,7 +15,7 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  sudo docker run -it --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_initpki
 fi
 
-sudo docker compose -d up
+sudo docker compose up -d
 
 #keycreation.sh will be created and the build repo will be deleted
 cd ~
