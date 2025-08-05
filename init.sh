@@ -17,6 +17,6 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  sudo docker run -it --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_initpki
 fi
 
-sudo chmod +x keycreation.sh
+sudo chmod +x newclient.sh
 sudo chmod +x removeserver.sh
 sudo docker compose up -d
