@@ -1,0 +1,14 @@
+services:
+ ovpn:
+  image: buildtovpn
+  ports:
+   - 1194:1194/udp
+  volumes:
+   - vol_ovpn:/etc/openvpn
+  cap_add:
+   - NET_ADMIN
+  restart: unless-stopped
+
+volumes:
+ vol_ovpn:
+  external: true
