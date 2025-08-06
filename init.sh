@@ -24,7 +24,14 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
 CMD='sed -i "/push \"block-outside-dns\"/d" /etc/openvpn/openvpn.conf'
 sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn sh -c "$CMD"
 
-CMD='echo "push \"route ${NETWORK} ${SUBNET}\"" >> /etc/openvpn/openvpn.conf'
+CMD='sed -i "/push \"dhcp-option DNS 8.8.4.4\"/d" /etc/openvpn/openvpn.conf'
+sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn sh -c "$CMD"
+
+CMD='sed -i "/push \"dhcp-option DNS 8.8.8.8\"/d" /etc/openvpn/openvpn.conf'
+sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn sh -c "$CMD"
+
+CMD="echo \"push \\\"route ${NETWORK} ${SUBNET}\\\"\" >> /etc/openvpn/openvpn.conf"
+
 sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn sh -c "$CMD"
 fi
 
