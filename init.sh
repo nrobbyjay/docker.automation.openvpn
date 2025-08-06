@@ -16,7 +16,8 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  PUBLIC_IP=$(curl -s ifconfig.me)
  sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_genconfig -u udp://$PUBLIC_IP
  sudo docker run -it --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_initpki
- #create method to export docker bridge + redirect net traffic to client network instead of vpn tunnel
+
+
  DOCKERNETWORKBRIDGE=$(sudo docker network inspect bridge --format '{{(index .IPAM.Config 0).Subnet}}')
  NETWORK=$(ipcalc $DOCKERNETWORKBRIDGE | awk -F: '/Address/ {print $2}' | awk '{print $1}')
  SUBNET=$(ipcalc $DOCKERNETWORKBRIDGE | awk -F: '/Netmask/ {print $2}' | awk '{print $1}')
