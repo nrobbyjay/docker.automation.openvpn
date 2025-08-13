@@ -62,3 +62,5 @@ sleep 2
 sudo docker compose -f portainer.yaml up -d
 
 sudo docker compose -f code.yaml up -d
+
+sudo rm docker-openvpn -rf
