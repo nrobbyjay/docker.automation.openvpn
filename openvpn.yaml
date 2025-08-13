@@ -6,7 +6,7 @@ services:
   volumes:
    - vol_ovpn:/etc/openvpn
   networks:
-   - ovpnnet
+   - ovpn_net
   cap_add:
    - NET_ADMIN
   restart: unless-stopped
@@ -15,5 +15,5 @@ volumes:
  vol_ovpn:
   external: true
 networks:
- ovpnnet:
+ ovpn_net:
   external: true
