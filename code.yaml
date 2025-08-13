@@ -1,0 +1,22 @@
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - TZ=Etc/UTC
+      - PASSWORD=Bb*963.*963.
+      - SUDO_PASSWORD=password Bb*963.*963.
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+      - PWA_APPNAME=code-server #optional
+    volumes:
+      - ide_codeoss:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+networks:
+ ovpn_net:
+  external: true
+
+volumes:
+ ide_codeoss:
+  external: true

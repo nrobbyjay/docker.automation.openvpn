@@ -45,6 +45,11 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'portainer_data'; then
 sudo docker volume create portainer_data
 fi
 
+if ! docker volume ls --format '{{.Name}}' | grep -wq 'ide_codeoss'; then
+sudo docker volume create ide_codeoss
+fi
+
+
 sudo chmod +x newclient.sh
 sudo chmod +x removeserver.sh
 sudo docker compose -f openvpn.yaml up -d
@@ -55,3 +60,5 @@ sleep 5
 sudo docker compose -f portainer.yaml down -d
 sleep 2
 sudo docker compose -f portainer.yaml up -d
+
+sudo docker compose -f code.yaml up -d
