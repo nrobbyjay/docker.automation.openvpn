@@ -1,6 +1,6 @@
 sudo apt update && sudo apt upgrade -y
 git --version >/dev/null 2>&1 || echo "error: git is not installed"
-docker --version >/dev/null 2>&1 || echo "error: git is not installed"
+docker --version >/dev/null 2>&1 || echo "error: docker is not installed"
 ipcalc --version >/dev/null 2>&1 || echo "error: ipcalc is not installed"
 
 if ! docker image ls --format '{{.Repository}}:{{.Tag}}' | grep -wq buildtovpn; then
