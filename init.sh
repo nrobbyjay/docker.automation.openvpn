@@ -48,4 +48,10 @@ fi
 sudo chmod +x newclient.sh
 sudo chmod +x removeserver.sh
 sudo docker compose -f openvpn.yaml up -d
+
+
+sudo docker compose -f portainer.yaml up -d
+sleep 5
+sudo docker compose -f portainer.yaml down -d
+sleep 2
 sudo docker compose -f portainer.yaml up -d
