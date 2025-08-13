@@ -1,3 +1,8 @@
-sudo docker compose down
+sudo docker compose -f openvpn.yaml down
+sudo docker compose -f portainer.yaml down
+
 sudo docker image rm buildtovpn
 sudo docker volume rm vol_ovpn
+sudo docker network rm ovpnnet
+
+sudo docker volume rm portainer_data

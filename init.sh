@@ -11,6 +11,11 @@ if ! docker image ls --format '{{.Repository}}:{{.Tag}}' | grep -wq buildtovpn; 
  rm docker-openvpn.git -rf
 fi
 
+if ! docker network ls --format '{{.Name}}' | grep -wq 'ovpn_net';then
+sudo docker network create ovpn_net
+fi
+
+
 if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  sudo docker volume create vol_ovpn
  PUBLIC_IP=$(curl -s ifconfig.me)
@@ -18,7 +23,7 @@ if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
  sudo docker run -it --rm -v vol_ovpn:/etc/openvpn buildtovpn ovpn_initpki
 
 
- DOCKERNETWORKBRIDGE=$(sudo docker network inspect bridge --format '{{(index .IPAM.Config 0).Subnet}}')
+ DOCKERNETWORKBRIDGE=$(sudo docker network inspect ovpn_net --format '{{(index .IPAM.Config 0).Subnet}}')
  NETWORK=$(ipcalc $DOCKERNETWORKBRIDGE | awk -F: '/Address/ {print $2}' | awk '{print $1}')
  SUBNET=$(ipcalc $DOCKERNETWORKBRIDGE | awk -F: '/Netmask/ {print $2}' | awk '{print $1}')
 
@@ -36,6 +41,11 @@ CMD="echo \"push \\\"route ${NETWORK} ${SUBNET}\\\"\" >> /etc/openvpn/openvpn.co
 sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn sh -c "$CMD"
 fi
 
+if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
+sudo docker volume create portainer_data
+fi
+
 sudo chmod +x newclient.sh
 sudo chmod +x removeserver.sh
-sudo docker compose up -d
+sudo docker compose -f openvpn.yaml up -d
+sudo docker compose -f portainer.yaml up -d
