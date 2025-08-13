@@ -41,7 +41,7 @@ CMD="echo \"push \\\"route ${NETWORK} ${SUBNET}\\\"\" >> /etc/openvpn/openvpn.co
 sudo docker run --rm -v vol_ovpn:/etc/openvpn buildtovpn sh -c "$CMD"
 fi
 
-if ! docker volume ls --format '{{.Name}}' | grep -wq 'vol_ovpn'; then
+if ! docker volume ls --format '{{.Name}}' | grep -wq 'portainer_data'; then
 sudo docker volume create portainer_data
 fi
 
