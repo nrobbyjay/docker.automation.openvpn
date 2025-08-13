@@ -1,4 +1,4 @@
-# nrobbyjay/docker.automation.openvpn
+#docker.automation.openvpn
 
 **nrobbyjay/docker.automation.openvpn** is a portable lab environment that can be deployed on cloud or on-premise servers. It provisions containerized services, including a browser-based IDE and a container management dashboard, all secured via OpenVPN.
 
