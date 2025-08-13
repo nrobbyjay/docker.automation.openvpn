@@ -5,7 +5,7 @@ services:
    - 1194:1194/udp
   volumes:
    - vol_ovpn:/etc/openvpn
-  network:
+  networks:
    - ovpnnet
   cap_add:
    - NET_ADMIN
